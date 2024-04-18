@@ -17,6 +17,12 @@ export default function Navbar() {
       >
         Add Coin
       </Link>
+      <Link
+        className="text-1xl lg:text-4xl bg-slate-300 rounded-md text-slate-700 m-2 p-2"
+        href="/signup"
+      >
+        Sign up
+      </Link>
       <ConnectDB />
     </nav>
   );
