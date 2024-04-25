@@ -24,6 +24,7 @@ const LoginPage = () => {
         },
         body: JSON.stringify(user),
       });
+
       const data = await res.json();
       console.log("submitted successful");
       console.log(data);
