@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const SignupPage = () => {
-  //const router = useRouter();
+  const router = useRouter();
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -26,7 +26,7 @@ const SignupPage = () => {
 
       console.log("submitted");
       console.log(data);
-      //router.push("/login");
+      router.push("/login");
     } catch (error: any) {
       console.error("Signup failed", error.message);
     }

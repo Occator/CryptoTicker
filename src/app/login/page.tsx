@@ -1,10 +1,10 @@
 "use client";
 import { use, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  //const router = useRouter();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     email: "",
@@ -28,7 +28,7 @@ const LoginPage = () => {
       console.log("submitted successful");
       console.log(data);
       if (res) setIsLoading(false);
-      //router.push("/");
+      router.push("/");
     } catch (error: any) {
       console.error("Login failed, please try again.", error.message);
     }
@@ -68,7 +68,9 @@ const LoginPage = () => {
         >
           Login
         </button>
-        <Link href="/signup">visit signup page</Link>
+        <Link href="/signup" className="text-white">
+          visit signup page
+        </Link>
       </form>
     </div>
   );
