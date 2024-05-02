@@ -29,19 +29,19 @@ const LoginPage = () => {
       console.log("submitted successful");
       console.log(data);
       if (res) setIsLoading(false);
-      router.push("/");
+      router.push("/profile");
     } catch (error: any) {
       console.error("Login failed, please try again.", error.message);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className=" text-white flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className="text-white">Login</h1>
       <form
         onSubmit={handleLogin}
         className=" flex flex-col gap-2 content-center items-center p-2 m-2"
       >
-        <h1>{isLoading ? "Processing" : "Login"}</h1>
         <hr />
         <label htmlFor="email" className="text-white">
           email

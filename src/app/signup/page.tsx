@@ -1,76 +1,30 @@
 "use client";
-import { useState, useEffect, use } from "react";
-import { useRouter } from "next/navigation";
+
+import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+import signupAction from "@/actions/signupAction";
 
 const SignupPage = () => {
-  const router = useRouter();
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("start submitting");
-    try {
-      const res = await fetch("http://localhost:3000/api/users/signup", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      const data = await res.json();
-
-      console.log("submitted");
-      console.log(data);
-      router.push("/login");
-    } catch (error: any) {
-      console.error("Signup failed", error.message);
-    }
-  };
+  const [error, formAction] = useFormState(signupAction, undefined);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 ">
+      <h1 className="text-white">Sign up</h1>
       <form
-        onSubmit={handleSignup}
+        action={formAction}
         className=" flex flex-col gap-2 content-center items-center p-2 m-2"
       >
         <label htmlFor="username" className="text-white">
           username
         </label>
-        <input
-          id="username"
-          type="text"
-          value={user?.username}
-          onChange={(event) =>
-            setUser({ ...user, username: event.target.value })
-          }
-          placeholder="username"
-        />
+        <input type="text" name="username" placeholder="username" />
         <label htmlFor="email" className="text-white">
           email
         </label>
-        <input
-          id="email"
-          type="email"
-          value={user.email}
-          onChange={(event) => setUser({ ...user, email: event.target.value })}
-          placeholder="email"
-        />
+        <input type="email" name="email" placeholder="email" />
         <label htmlFor="password" className="text-white">
           password
         </label>
-        <input
-          id="password"
-          type="password"
-          value={user.password}
-          onChange={(event) =>
-            setUser({ ...user, password: event.target.value })
-          }
-          placeholder="password"
-        />
+        <input type="password" name="password" placeholder="password" />
         <button
           type="submit"
           className="text-white bg-slate-700 p-2 rounded-md"
@@ -78,6 +32,7 @@ const SignupPage = () => {
           Sign up
         </button>
       </form>
+      {error && <p className="text-white">{error}</p>}
     </div>
   );
 };
