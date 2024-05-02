@@ -1,6 +1,5 @@
 "use client";
 
-import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";
 import signupAction from "@/actions/signupAction";
 
