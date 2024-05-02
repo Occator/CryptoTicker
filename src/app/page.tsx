@@ -4,15 +4,18 @@ import { useContext } from "react";
 import CoinCard from "@/components/CoinCard";
 import { coinContext } from "@/context/coinContext";
 
-export default function LandingPage() {
+export default function Home() {
+  const { coinsArray } = useContext(coinContext);
+
   return (
-    <>
-      <section className="grid h-screen place-items-center">
-        <div className="text-white bg-indigo-900 p-44">
-          <h1 className="text-3xl">Landing Page </h1>
-          <h3>nothing to see here</h3>
+    <div className="flex flex-col gap-4 bg-gray-900 min-h-screen">
+      {coinsArray?.length > 0 ? (
+        coinsArray?.map((coin) => <CoinCard key={coin.id} coin={coin} />)
+      ) : (
+        <div>
+          <h2 className="text-white">Dashboard - No coins to track ... </h2>
         </div>
-      </section>
-    </>
+      )}
+    </div>
   );
 }
