@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import loginAction from "@/actions/loginAction";
+import { loginAction } from "@/actions";
 import Link from "next/link";
 
 const LoginPage = () => {
