@@ -6,7 +6,6 @@ export const GET = async () => {
       message: "Logout successful",
       success: true,
     });
-    console.log("### response###", res.cookies);
     res.cookies.set("token", "", { httpOnly: true, expires: new Date(0) });
     return res;
   } catch (error: any) {

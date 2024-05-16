@@ -7,7 +7,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
   return (
     <section className="text-white text-1xs mx-3">
       <Image
-        src={coin?.image.small}
+        src={coin?.image?.small}
         width={30}
         height={30}
         alt={coin?.name}

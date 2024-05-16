@@ -1,15 +1,23 @@
-import jwt from "jsonwebtoken";
-import { NextRequest } from "next/server";
+import { cookies } from "next/headers";
+import * as jose from "jose";
+import { NextResponse, NextRequest } from "next/server";
 
-export const getDataFromToken = (request: NextRequest) => {
+export const getDataFromToken = async (request: NextRequest) => {
+  const cookie = cookies().get("Authorization");
+  if (!cookie) {
+    return NextResponse.redirect(new URL("/login", request.nextUrl));
+  }
+
+  const secret = new TextEncoder().encode(process.env.TOKEN_SECRET);
+  const jwt = cookie?.value;
+
   try {
     //retrieve token from cookie
-    const token = request.cookies.get("token")?.value || "";
 
-    const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);
-    console.log("decoded token", decodedToken);
-    return decodedToken.id;
+    const { payload } = await jose.jwtVerify(jwt, secret, {});
+    const decodedToken = payload;
+    return decodedToken;
   } catch (error: any) {
-    throw new Error(error.message);
+    return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
 };

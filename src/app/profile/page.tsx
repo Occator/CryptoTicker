@@ -12,7 +12,6 @@ const ProfilePage = () => {
       const res = await fetch("/api/users/logout", { method: "GET" });
       const data = await res.json();
 
-      console.log("logout data", data);
       router.push("/login");
     } catch (error: any) {}
   };
@@ -25,7 +24,6 @@ const ProfilePage = () => {
       setData(data.data._id);
       router.push("/");
     } catch (error) {}
-    console.log("###profile data", data);
   };
   return (
     <div className=" text-white flex flex-col items-center justify-center gap-3 min-h-screen py-2">

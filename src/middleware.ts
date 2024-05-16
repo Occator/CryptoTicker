@@ -1,6 +1,6 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getDataFromToken } from "./utils/getDataFromToken";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
 import * as jose from "jose";
 
 export async function middleware(request: NextRequest) {
@@ -18,7 +18,6 @@ export async function middleware(request: NextRequest) {
 
   try {
     const { payload } = await jose.jwtVerify(jwt, secret, {});
-    console.log("payload from jwt token", payload);
   } catch (error: any) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }

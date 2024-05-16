@@ -1,7 +1,8 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import signupAction from "@/actions/signupAction";
+import { signupAction } from "@/actions";
+import Link from "next/link";
 
 const SignupPage = () => {
   const [error, formAction] = useFormState(signupAction, undefined);
@@ -30,6 +31,9 @@ const SignupPage = () => {
         >
           Sign up
         </button>
+        <Link href={"/login"} className="text-white">
+          Already have an account?
+        </Link>
       </form>
       {error && <p className="text-white">{error}</p>}
     </div>
