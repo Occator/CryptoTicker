@@ -12,8 +12,6 @@ type SuggestionCardProps = {
 const SuggestionCard = (props: SuggestionCardProps) => {
   const { coinId } = useContext(coinContext);
   const { coin, id } = props;
-
-  console.log("### coinId ", coinId);
   return (
     <section className="p-4">
       <Image src={coin.image} alt={coin.name} width={60} height={60} />

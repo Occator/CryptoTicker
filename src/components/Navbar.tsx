@@ -5,7 +5,6 @@ import { getSession } from "@/actions";
 
 export default async function Navbar() {
   const isLoggedIn = await getSession();
-  console.log("navbar", isLoggedIn);
   return (
     <nav className="shadow-sm sticky top-0 left-0 z-50 bg-purple-900 text-white flex justify-center items-center space-x-6">
       {isLoggedIn?.value ? (

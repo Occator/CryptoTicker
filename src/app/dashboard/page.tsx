@@ -1,14 +1,8 @@
-//"use client";
-
-// import { useContext } from "react";
 import CoinCard from "@/components/CoinCard";
-// import { coinContext } from "@/context/coinContext";
 import { getDataFromToken } from "@/utils/getDataFromToken";
 import { NextRequest } from "next/server";
 
 export default async function Home(request: NextRequest) {
-  //const { coinsArray } = useContext(coinContext);
-
   const coinsArray = undefined;
   const tokenData = await getDataFromToken(request);
 

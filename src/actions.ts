@@ -57,7 +57,6 @@ export const signupAction = async (
     body: JSON.stringify({ username, email, password }),
   });
   const data = await res.json();
-  console.log("###Signup data", data);
   if (res.ok) {
     redirect("/login");
   } else {
@@ -69,7 +68,6 @@ export const logoutAction = async () => {
   const cookie = cookies().get("Authorization");
   if (cookie) {
     const emptyCookie = cookies().delete("Authorization");
-    console.log("emptyCookie", emptyCookie);
     redirect("/");
   }
 };
