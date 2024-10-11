@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import LogoutForm from "./logoutForm";
 import { getSession } from "@/actions";
 

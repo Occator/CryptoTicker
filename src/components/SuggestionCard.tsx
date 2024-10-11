@@ -1,6 +1,4 @@
 "use client";
-import { useContext, useRef } from "react";
-import { coinContext } from "@/context/coinContext";
 import Image from "next/image";
 import Button from "./ui/Button";
 
@@ -10,7 +8,6 @@ type SuggestionCardProps = {
 };
 
 const SuggestionCard = (props: SuggestionCardProps) => {
-  const { coinId } = useContext(coinContext);
   const { coin, id } = props;
   return (
     <section className="p-4">

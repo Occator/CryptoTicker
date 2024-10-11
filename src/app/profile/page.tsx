@@ -1,43 +1,30 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const ProfilePage = () => {
-  const router = useRouter();
-  const [data, setData] = useState("nothing");
+  const [user, setUser] = useState("nobody");
 
-  const logout = async () => {
+  const getDetails = async () => {
     try {
-      const res = await fetch("/api/users/logout", { method: "GET" });
-      const data = await res.json();
-
-      router.push("/login");
-    } catch (error: any) {}
-  };
-
-  const getUserDetails = async () => {
-    try {
-      const res = await fetch("/api/users/user", { method: "GET" });
-      const data = await res.json();
-      console.log("getUserDetails", data);
-      setData(data.data._id);
-      router.push("/");
-    } catch (error) {}
+      const res = await fetch("/api/user", { method: "GET" });
+      const user = await res.json();
+      console.log("getUserDetails", user);
+      setUser(user);
+      revalidatePath("/profile");
+    } catch (error) {
+      console.log("something went wrong ...", error);
+    }
   };
   return (
     <div className=" text-white flex flex-col items-center justify-center gap-3 min-h-screen py-2">
       <h1 className="text-3xl">Profile</h1>
-      <h2>
-        {data === "nothing" ? (
-          "Nothing"
-        ) : (
-          <Link href={`profile/${data}`} className="text-white">
-            {data}
-          </Link>
-        )}
-      </h2>
-      <button onClick={logout}>logout</button>
+      <h2>{user === "nobody" ? "empty profile" : user?.data?.username}</h2>
+      <p>
+        {user === "nobody"
+          ? "no coins selected"
+          : user?.data?.selectedCoins.length}
+      </p>
       <button onClick={getUserDetails}>user details</button>
     </div>
   );

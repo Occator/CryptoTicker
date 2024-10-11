@@ -75,6 +75,6 @@ export const logoutAction = async () => {
 // GET SESSION
 
 export const getSession = async () => {
-  const session = cookies().get("Authorization");
+  const session = await cookies().get("Authorization");
   return session;
 };
