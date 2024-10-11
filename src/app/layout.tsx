@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Condensed, Roboto } from "next/font/google";
 import "./globals.css";
-import CoinContextProvider from "../context/coinContext";
-import UserContextProvider from "@/context/userContext";
 import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,10 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en" className=" bg-gray-900 min-h-screen">
       <body className={inter.className}>
-        <UserContextProvider>
-          <Navbar />
-          {children}
-        </UserContextProvider>
+        <Navbar />
+        {children}
       </body>
     </html>
   );
