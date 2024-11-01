@@ -35,7 +35,7 @@ const SignupPage = () => {
           Already have an account?
         </Link>
       </form>
-      {error && <p className="text-white">{error}</p>}
+      {error && <p className="text-red-700">{error}</p>}
     </div>
   );
 };

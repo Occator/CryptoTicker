@@ -19,14 +19,17 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  isVeryfied: {
+  isVerified: {
     type: Boolean,
     default: false,
+  },
+  verifyToken: {
+    type: String,
+    default: "",
   },
   // walletPublicKey: String,
   // forgotPasswordToken: String,
   // forgotPasswordTokenExpiry: Date,
-  // verifyToken: String,
   // verifyTokenExpiry: Date,
 });
 
