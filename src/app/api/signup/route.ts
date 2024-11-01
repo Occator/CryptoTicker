@@ -1,19 +1,20 @@
 import { connectDB } from "../../../dbConfig/dbConfig";
+import { sendEmail } from "@/utils/sendEmail";
 import User from "@/models/UserModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import cryptoRandomString from "crypto-random-string";
 import validateEmail from "@/utils/validateEmail";
 import validatePassword from "@/utils/validatePassword";
 
-// establish connection to MongoDB
-connectDB();
-
 // define async POST request handler function
 export const POST = async (request: NextRequest) => {
+  // establish connection to MongoDB
+  connectDB();
   try {
     // read data from request body
-    const body = await request.json();
-    const { username, email, password } = body;
+    const requestBody = await request.json();
+    const { username, email, password } = requestBody;
 
     // validate data from sign up form
     if (!validateEmail(email) || !validatePassword(password)) {
@@ -27,19 +28,23 @@ export const POST = async (request: NextRequest) => {
     // hash the password
     const hashedPassword = bcrypt.hashSync(password, 8);
 
+    // generate random token
+    const verifyToken = cryptoRandomString({ length: 24, type: "url-safe" });
+
     // create user in database
     const newUser = new User({
-      username: username,
-      email: email,
+      username,
+      email,
       password: hashedPassword,
+      verifyToken,
     });
     const savedUser = await newUser.save();
 
-    // return something
+    await sendEmail(email, verifyToken);
 
     return NextResponse.json(
       {
-        message: "Successfully created User",
+        message: "User created successfully.",
         success: true,
         savedUser,
       },

@@ -58,7 +58,7 @@ export const signupAction = async (
   });
   const data = await res.json();
   if (res.ok) {
-    redirect("/login");
+    //redirect("/login");
   } else {
     return data.error;
   }
@@ -67,7 +67,7 @@ export const signupAction = async (
 export const logoutAction = async () => {
   const cookie = cookies().get("Authorization");
   if (cookie) {
-    const emptyCookie = cookies().delete("Authorization");
+    cookies().delete("Authorization");
     redirect("/");
   }
 };
@@ -75,6 +75,6 @@ export const logoutAction = async () => {
 // GET SESSION
 
 export const getSession = async () => {
-  const session = cookies().get("Authorization");
+  const session = await cookies().get("Authorization");
   return session;
 };

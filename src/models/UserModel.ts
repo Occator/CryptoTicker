@@ -19,15 +19,18 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  isVeryfied: {
+  isVerified: {
     type: Boolean,
     default: false,
   },
-  walletPublicKey: String,
-  forgotPasswordToken: String,
-  forgotPasswordTokenExpiry: Date,
-  verifyToken: String,
-  verifyTokenExpiry: Date,
+  verifyToken: {
+    type: String,
+    default: "",
+  },
+  // walletPublicKey: String,
+  // forgotPasswordToken: String,
+  // forgotPasswordTokenExpiry: Date,
+  // verifyTokenExpiry: Date,
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

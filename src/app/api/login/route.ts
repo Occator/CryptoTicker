@@ -28,7 +28,17 @@ export const POST = async (request: NextRequest) => {
 
   // look up the current user
   const user = await User.findOne({ email });
-  if (!user) {
+  console.log("account verified? ", user.isVerified);
+  if (!user || !user.isVerified) {
+    if (!user.isVerified) {
+      return NextResponse.json(
+        {
+          error:
+            "Please activate your account by clicking the activation link in the email.",
+        },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
       {
         error: "Invalid email or password",
@@ -60,10 +70,7 @@ export const POST = async (request: NextRequest) => {
     .setExpirationTime("24h")
     .sign(secret);
 
-  console.log("JWT token", jwt);
+  //console.log("JWT token", jwt);
 
   return NextResponse.json({ token: jwt });
-  try {
-    return NextResponse.json({});
-  } catch (error: any) {}
 };
